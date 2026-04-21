@@ -16,7 +16,7 @@ export const fetchNotes = async (
   page: number,
   search: string
 ): Promise<FetchNotesResponse> => {
-  const { data } = await axios.get(`${API_URL}/notes`, {
+  const { data } = await axios.get<FetchNotesResponse>(`${API_URL}/notes`, {
     params: {
       page,
       perPage: 12,
@@ -27,12 +27,12 @@ export const fetchNotes = async (
   return data;
 };
 
-export const createNote = async (note: Omit<Note, 'id' | 'createdAt'>): Promise<Note> => {
-  const { data } = await axios.post(`${API_URL}/notes`, note);
+export const createNote = async (note: Omit<Note, 'id' | 'createdAt' | 'updatedAt'>): Promise<Note> => {
+  const { data } = await axios.post<Note>(`${API_URL}/notes`, note);
   return data;
 };
 
 export const deleteNote = async (id: string): Promise<Note> => {
-  const { data } = await axios.delete(`${API_URL}/notes/${id}`);
+  const { data } = await axios.delete<Note>(`${API_URL}/notes/${id}`);
   return data;
 };
